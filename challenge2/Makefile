@@ -1,17 +1,15 @@
-compile: bin bin/filter.o bin/main.o
-	gcc bin/filter.o bin/main.o -lm -oblur
+BENCHMARK=challenge2
+TARGET=blur
+TEST_IDS?=0
+TEST_NUM=24
+SOURCE=blur.c
+IGNORE?="blur.c"
+# to run the python tests instead of the output diff based tests
+PYTESTS="-py"
+TEST_SCRIPT="wrapped_tests.py"
 
-bin: 
-	mkdir bin/
+ifneq ("$(wildcard local.mk)","") 
+include local.mk 
+endif
 
-bin/filter.o: src/filter.c
-	gcc -o bin/filter.o -c src/filter.c
-
-bin/main.o: src/main.c
-	gcc -o bin/main.o -c src/main.c
-
-clean_compile: compile
-	rm -rf bin
-exec: compile
-	./blur
-
+include $(MUSE_HOME)/pliny-software-evolution/pliny-se/test/etc/Makefile
