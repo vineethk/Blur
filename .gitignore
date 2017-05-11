@@ -1,6 +1,3 @@
-#Ignore images
-*.ppm
-
 #Ignore .o files
 *.o
 
