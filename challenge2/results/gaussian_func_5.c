@@ -1,20 +1,12 @@
 // source : https://raw.githubusercontent.com/Seo-Hyung/Gaussian-Smoothing-Filter/master/src.cpp
 // removed opencv code
 #include <math.h>
-#include <iostream>
 #include <stdlib.h>
-using namespace std;
 
 int main(int argc, char** argv) {
 	float tmp = 0.0, sigma, input, sum = 0.0, s, g = 0.0, **mask;
 	int n, n_odd;
 
-	// Load the image
-	std::cout << "* Enter mask size n: ";
-	std::cin >> input;
-	n = input;
-	std::cout << "* Enter sigma: ";
-	std::cin >> input;
 	sigma = input;
 	s = 2.0*sigma*sigma;
 
