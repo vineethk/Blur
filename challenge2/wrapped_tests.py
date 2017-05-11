@@ -23,16 +23,16 @@ def get_output(prog, radius, sigma):
 def get_parsed_output(prog, radius, sigma):
     o = get_output(prog, radius, sigma)
     if len(o) == 0:
-        return failed()
+        return []
     # split on any whitespace
     items = o.split(None)
     if len(items) != (2*radius + 1) * (2*radius + 1):
-        return failed()
+        return []
     try:
         items = map(float, items)
         return items
     except ValueError:
-        return failed()
+        return []
 
 def get_expected_output(filename):
     with open(filename, 'r') as f:
@@ -71,10 +71,12 @@ def test_radius_line_items(output, radius):
     return passed()
 
 def test_radius_num_items(output, radius):
-    if len(output.split(None)) == (2*radius + 1) * (2*radius + 1):
-        return passed()
-    else:
+    num_items = len(output.split(None))
+    total = (2*radius + 1) * (2*radius + 1)
+    if num_items >= 2 * total:
         return failed()
+    else:
+        return passed(100 - (abs(total - num_items) * 100.0 / total))
 
 ## testing some base formatting and output for input1
 def test_1_base_1(prog):
@@ -96,7 +98,6 @@ def test_1_base_4(prog):
     radius = 1
     actual = get_parsed_output(prog, radius, 1)
     expected = get_parsed_expected_output("test_output/output1.txt")
-    diff = 0.0
     if(len(actual) != len(expected)):
         return failed()
     else:
@@ -121,7 +122,6 @@ def test_2_base_4(prog):
     radius = 2
     actual = get_parsed_output(prog, radius, 3)
     expected = get_parsed_expected_output("test_output/output2.txt")
-    diff = 0.0
     if(len(actual) != len(expected)):
         return failed()
     else:
@@ -146,7 +146,6 @@ def test_3_base_4(prog):
     radius = 5
     actual = get_parsed_output(prog, radius, 4)
     expected = get_parsed_expected_output("test_output/output3.txt")
-    diff = 0.0
     if(len(actual) != len(expected)):
         return failed()
     else:
