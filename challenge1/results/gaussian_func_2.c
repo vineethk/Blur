@@ -6,12 +6,10 @@ void GaussianKernel(unsigned long KernelLength, float sigma)
 {
 	unsigned long mKernelLength = KernelLength;
         int padding = (int)(KernelLength/2);
-        float** KernelMatrix;
 	float sum=0;
-	KernelMatrix = new float*[mKernelLength];
+	float KernelMatrix[mKernelLength][mKernelLength];
 	for( int i=0 ,x=-padding ; i < mKernelLength,x<=padding ; i++,x++ )
 	{
-		KernelMatrix[i] = new float[mKernelLength];
 		for(int j = 0 ,y=-padding;  j <  mKernelLength ,y<=padding; j++,y++)
 		{
 			//2D gaussian formula

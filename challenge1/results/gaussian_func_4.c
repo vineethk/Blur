@@ -1,13 +1,11 @@
 // Source https://github.com/itatriev/gaussian3x3/blob/master/gaussian.cpp
 // Moved constuctor source into the function
-#include <cmath>
-#include <vector>
+#include <math.h>
 
 void produce2dGaussianKernel(int kernelRadius, double sigma, double mean)
 {
-    typedef std::vector<std::vector<double> > Matrix;
     double sum;
-    Matrix kernel;
+    double kernel[kernelRadius][kernelRadius];
 
     // Fill the values into the kernel
     for(int x = 0; x < kernelRadius; x++)
